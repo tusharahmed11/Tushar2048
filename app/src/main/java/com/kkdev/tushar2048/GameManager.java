@@ -10,15 +10,18 @@ import android.view.SurfaceView;
 
 import com.kkdev.tushar2048.sprites.Grid;
 
-public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
+public class GameManager extends SurfaceView implements SurfaceHolder.Callback, SwipeCallback  {
     private MainThread thread;
     private Grid grid;
     private int scWidth, scHeight, standardSize;
+    private TileManager tileManager;
+    private SwipeListener swipe;
 
 
     public GameManager(Context context, AttributeSet attrs){
         super(context, attrs);
         getHolder().addCallback(this);
+        swipe = new SwipeListener(getContext(), this);
 
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -27,6 +30,7 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
         standardSize = (int) (scWidth *.88) /4;
 
         grid = new Grid(getResources(),scWidth,scHeight,standardSize);
+        tileManager = new TileManager(getResources(), standardSize,scWidth,scHeight);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
     public void update(){
-
+        tileManager.update();
     }
 
     @Override
@@ -63,5 +67,11 @@ public class GameManager extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         canvas.drawRGB(255,255,255);
         grid.draw(canvas);
+        tileManager.draw(canvas);
+    }
+
+    @Override
+    public void onSwipe(Direction direction) {
+        tileManager.onSwipe(direction);
     }
 }

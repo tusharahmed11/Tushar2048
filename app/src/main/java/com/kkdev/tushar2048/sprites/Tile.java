@@ -10,7 +10,7 @@ public class Tile implements Sprite {
     private TileManagerCallback callback;
     private int count = 1;
 
-    public Tile(int screenWidth, int screenHeight, int standardSize, TileManagerCallback callback) {
+    public Tile(int screenWidth, int screenHeight, int standardSize, TileManagerCallback callback, int matrixX, int matrixY) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.standardSize = standardSize;
@@ -19,7 +19,7 @@ public class Tile implements Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(callback.getBitmap(count), screenWidth/2 - standardSize, screenHeight /2 - standardSize, null);
+        canvas.drawBitmap(callback.getBitmap(count), screenWidth / 2 - standardSize,  screenHeight / 2 -  standardSize, null);
     }
 
     @Override
