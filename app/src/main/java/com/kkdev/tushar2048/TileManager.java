@@ -71,12 +71,16 @@ public class TileManager implements TileManagerCallback, Sprite {
     public void onSwipe(SwipeCallback.Direction direction){
         switch (direction){
             case UP:
+                t.move(0,1);
                 break;
             case DOWN:
+                t.move(3,1);
                 break;
             case LEFT:
+                t.move(1,0);
                 break;
             case RIGHT:
+                t.move(1,3);
                 break;
         }
     }
